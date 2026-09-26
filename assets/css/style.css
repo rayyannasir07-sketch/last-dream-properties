@@ -789,7 +789,40 @@ body {
 
 .slogan-card.active {
   pointer-events: auto;
+  opacity: 1 !important;
+  transform: translateY(0) scale(1) !important;
 }
+
+.slogan-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(21, 24, 29, 0.88);
+  border: 1px solid var(--border-gold);
+  color: var(--accent-gold);
+  font-size: 1.8rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.25s ease;
+  pointer-events: auto;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.slogan-nav-btn:hover {
+  background: var(--accent-gold);
+  color: #0B0D10;
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 0 20px rgba(201, 164, 92, 0.5);
+}
+.slogan-prev-btn { left: 2rem; }
+.slogan-next-btn { right: 2rem; }
 
 .slogan-arabic-ornament {
   font-family: var(--font-arabic);
@@ -1760,14 +1793,38 @@ body {
   .nav-links { display: none; }
   .hero-main-title { font-size: 2.2rem; line-height: 1.15; }
   .hero-desc { font-size: 0.95rem; }
-  .slogan-quote-text { font-size: 1.35rem; }
-  .slogan-card { padding: 1.5rem 1.2rem; max-width: 90%; }
+  .scroll-video-section { position: relative; min-height: 80vh; }
+  .scroll-video-pin-wrapper {
+    height: auto;
+    min-height: 80vh;
+    padding: 5.5rem 1rem 4rem 1rem;
+    position: relative;
+  }
+  .slogans-stage {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    min-height: 360px;
+    padding: 0;
+  }
+  .slogan-card {
+    position: absolute;
+    width: 90%;
+    max-width: 440px;
+    padding: 1.6rem 1.2rem;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+  .slogan-prev-btn { left: 0.2rem; width: 36px; height: 36px; font-size: 1.4rem; }
+  .slogan-next-btn { right: 0.2rem; width: 36px; height: 36px; font-size: 1.4rem; }
+  .slogan-quote-text { font-size: 1.25rem; }
   .sacred-hud-header { padding: 0 1.2rem; top: 4.5rem; }
   .portfolio-grid { grid-template-columns: 1fr; }
   .hero-holy-stats { grid-template-columns: 1fr; gap: 0.8rem; }
   .footer-top { grid-template-columns: 1fr; }
   .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
   .form-grid { grid-template-columns: 1fr; }
+  .hud-dots { pointer-events: auto; }
+  .hud-dot { cursor: pointer; }
   #particles-canvas { display: none !important; }
 }
 

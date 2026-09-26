@@ -131,7 +131,7 @@ function initSmoothScrollAndVideoExperience() {
 
   sacredSlogans.forEach((slogan, index) => {
     const card = document.createElement('div');
-    card.className = 'slogan-card';
+    card.className = `slogan-card ${index === 0 ? 'active' : ''}`;
     card.setAttribute('data-index', index);
     card.innerHTML = `
       <div class="slogan-arabic-ornament">${slogan.arabic}</div>
@@ -144,81 +144,128 @@ function initSmoothScrollAndVideoExperience() {
 
     const dot = document.createElement('div');
     dot.className = `hud-dot ${index === 0 ? 'active' : ''}`;
+    dot.setAttribute('data-dot-index', index);
+    dot.setAttribute('title', `Go to slogan ${index + 1}`);
     dotsContainer.appendChild(dot);
     dotElements.push(dot);
   });
 
-  // Fast, Snappy GSAP ScrollTrigger Slogan Transition
-  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-    gsap.registerPlugin(ScrollTrigger);
+  // Add Left & Right Luxury Navigation Arrows
+  const wrapper = document.querySelector('.scroll-video-pin-wrapper');
+  if (wrapper && !document.getElementById('sloganPrevBtn')) {
+    const prevBtn = document.createElement('button');
+    prevBtn.className = 'slogan-nav-btn slogan-prev-btn';
+    prevBtn.id = 'sloganPrevBtn';
+    prevBtn.innerHTML = '‹';
+    prevBtn.setAttribute('aria-label', 'Previous Slogan');
 
-    const totalSlogans = sacredSlogans.length;
-    const isMobile = window.innerWidth < 768;
-    // Fast, lightweight scroll distance (no dragging or getting stuck)
-    const distancePerSlogan = isMobile ? 140 : 180;
-    const totalScrollDistance = totalSlogans * distancePerSlogan;
+    const nextBtn = document.createElement('button');
+    nextBtn.className = 'slogan-nav-btn slogan-next-btn';
+    nextBtn.id = 'sloganNextBtn';
+    nextBtn.innerHTML = '›';
+    nextBtn.setAttribute('aria-label', 'Next Slogan');
 
-    const masterTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: "#sacredJourneySection",
-        start: "top top",
-        end: `+=${totalScrollDistance}`,
-        pin: true,
-        scrub: 0.1, // Instantaneous 1-to-1 response
-        anticipatePin: 1,
-        onUpdate: (self) => {
-          let activeIdx = Math.floor(self.progress * totalSlogans);
-          if (activeIdx >= totalSlogans) activeIdx = totalSlogans - 1;
+    wrapper.appendChild(prevBtn);
+    wrapper.appendChild(nextBtn);
+  }
 
-          hudIndex.textContent = String(activeIdx + 1).padStart(2, '0');
-          if (hudLocation) {
-            hudLocation.textContent = sacredSlogans[activeIdx].location;
-          }
+  let activeIdx = 0;
+  const totalSlogans = sacredSlogans.length;
 
-          dotElements.forEach((d, i) => {
-            if (i === activeIdx) {
-              d.classList.add('active');
-            } else {
-              d.classList.remove('active');
-            }
-          });
-        }
-      }
-    });
-
-    const stepDuration = 1.0;
-    const overlap = 0.2;
+  function updateSlogan(index) {
+    if (index < 0) index = totalSlogans - 1;
+    if (index >= totalSlogans) index = 0;
+    activeIdx = index;
 
     cardElements.forEach((card, i) => {
-      gsap.set(card, {
-        opacity: i === 0 ? 1 : 0,
-        y: i === 0 ? 0 : 25,
-        scale: i === 0 ? 1 : 0.98,
-        pointerEvents: i === 0 ? "auto" : "none"
-      });
-
-      const startTime = i * (stepDuration - overlap);
-
-      if (i > 0) {
-        masterTl.to(card, {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 0.3,
-          ease: "none",
-          onStart: () => { card.style.pointerEvents = "auto"; }
-        }, startTime);
+      if (i === activeIdx) {
+        card.classList.add('active');
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0) scale(1)';
+        card.style.pointerEvents = 'auto';
+      } else {
+        card.classList.remove('active');
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px) scale(0.98)';
+        card.style.pointerEvents = 'none';
       }
-
-      masterTl.to(card, {
-        opacity: 0,
-        y: -25,
-        scale: 1.02,
-        duration: 0.25,
-        ease: "none",
-        onComplete: () => { card.style.pointerEvents = "none"; }
-      }, startTime + 0.65);
     });
+
+    hudIndex.textContent = String(activeIdx + 1).padStart(2, '0');
+    if (hudLocation) {
+      hudLocation.textContent = sacredSlogans[activeIdx].location;
+    }
+
+    dotElements.forEach((d, i) => {
+      if (i === activeIdx) d.classList.add('active');
+      else d.classList.remove('active');
+    });
+  }
+
+  // Interactive Buttons & Dot Listeners
+  const prevBtn = document.getElementById('sloganPrevBtn');
+  const nextBtn = document.getElementById('sloganNextBtn');
+  if (prevBtn) prevBtn.addEventListener('click', () => updateSlogan(activeIdx - 1));
+  if (nextBtn) nextBtn.addEventListener('click', () => updateSlogan(activeIdx + 1));
+
+  dotElements.forEach((dot, idx) => {
+    dot.addEventListener('click', () => updateSlogan(idx));
+  });
+
+  const isMobile = window.innerWidth < 768;
+
+  // On Mobile: ZERO PINNING (100% native smooth scroll + touch swipe & auto-rotation)
+  if (isMobile) {
+    // Touch swipe left/right for slogans
+    let touchStartX = 0;
+    let touchStartY = 0;
+    if (wrapper) {
+      wrapper.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }, { passive: true });
+
+      wrapper.addEventListener('touchend', (e) => {
+        const diffX = touchStartX - e.changedTouches[0].clientX;
+        const diffY = touchStartY - e.changedTouches[0].clientY;
+        if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+          if (diffX > 0) updateSlogan(activeIdx + 1);
+          else updateSlogan(activeIdx - 1);
+        }
+      }, { passive: true });
+    }
+
+    // Auto-rotation every 4.5 seconds on mobile
+    setInterval(() => {
+      updateSlogan(activeIdx + 1);
+    }, 4500);
+
+  } else {
+    // Desktop: Snappy GSAP ScrollTrigger without lag
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+      gsap.registerPlugin(ScrollTrigger);
+
+      const distancePerSlogan = 160;
+      const totalScrollDistance = totalSlogans * distancePerSlogan;
+
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: "#sacredJourneySection",
+          start: "top top",
+          end: `+=${totalScrollDistance}`,
+          pin: true,
+          scrub: 0.1,
+          anticipatePin: 1,
+          onUpdate: (self) => {
+            let idx = Math.floor(self.progress * totalSlogans);
+            if (idx >= totalSlogans) idx = totalSlogans - 1;
+            if (idx !== activeIdx) {
+              updateSlogan(idx);
+            }
+          }
+        }
+      });
+    }
   }
 }
 
