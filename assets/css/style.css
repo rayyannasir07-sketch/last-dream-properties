@@ -488,11 +488,10 @@ body {
 .hero-bg-layer {
   position: absolute;
   inset: 0;
-  background: url('../images/makkah_hero.jpg') center/cover no-repeat;
-  opacity: 0.28;
-  mix-blend-mode: luminosity;
-  transform: scale(1.05);
-  transition: transform 10s ease-out;
+  background: url('../images/saudi_hero_tower.jpg') center/cover no-repeat;
+  opacity: 0.72;
+  transform: scale(1.02);
+  transition: transform 8s ease-out;
 }
 .hero-section:hover .hero-bg-layer {
   transform: scale(1);
@@ -501,7 +500,8 @@ body {
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(11, 13, 16, 0.75) 0%, rgba(11, 13, 16, 0.85) 60%, #0B0D10 100%);
+  background: linear-gradient(180deg, rgba(11, 13, 16, 0.45) 0%, rgba(11, 13, 16, 0.65) 55%, #0B0D10 100%),
+              radial-gradient(ellipse at center, rgba(11, 13, 16, 0.2) 0%, rgba(11, 13, 16, 0.75) 100%);
 }
 
 .hero-container {
@@ -1760,14 +1760,26 @@ body {
 @media (max-width: 768px) {
   .site-header { padding: 0.8rem 1.2rem; }
   .nav-links { display: none; }
-  .hero-main-title { font-size: 2.4rem; }
+  .hero-main-title { font-size: 2.2rem; line-height: 1.15; }
   .hero-desc { font-size: 0.95rem; }
-  .slogan-quote-text { font-size: 1.5rem; }
-  .slogan-card { padding: 1.8rem 1.4rem; }
-  .sacred-hud-header { padding: 0 1.5rem; top: 5rem; }
+  .slogan-quote-text { font-size: 1.35rem; }
+  .slogan-card { padding: 1.5rem 1.2rem; max-width: 90%; }
+  .sacred-hud-header { padding: 0 1.2rem; top: 4.5rem; }
   .portfolio-grid { grid-template-columns: 1fr; }
-  .hero-holy-stats { grid-template-columns: 1fr; gap: 1rem; }
+  .hero-holy-stats { grid-template-columns: 1fr; gap: 0.8rem; }
   .footer-top { grid-template-columns: 1fr; }
   .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
   .form-grid { grid-template-columns: 1fr; }
+  #particles-canvas { display: none !important; }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .custom-cursor,
+  .custom-cursor-dot {
+    display: none !important;
+  }
+  body, html {
+    cursor: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
 }

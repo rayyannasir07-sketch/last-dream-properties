@@ -383,11 +383,15 @@ function initSoundToggle() {
 }
 
 // ==========================================
-// 6. GOLD PARTICLES CANVAS (OPTIMIZED LIGHTWEIGHT)
+// 6. GOLD PARTICLES CANVAS (DESKTOP ONLY FOR MAX PERFORMANCE)
 // ==========================================
 function initParticlesCanvas() {
+  const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (window.innerWidth < 768);
   const canvas = document.getElementById('particles-canvas');
-  if (!canvas) return;
+  if (!canvas || isTouch) {
+    if (canvas) canvas.style.display = 'none';
+    return;
+  }
   const ctx = canvas.getContext('2d');
 
   let width = canvas.width = window.innerWidth;
@@ -398,17 +402,17 @@ function initParticlesCanvas() {
     height = canvas.height = window.innerHeight;
   }, { passive: true });
 
-  const particleCount = 28; // Lightweight for 60fps performance
+  const particleCount = 20;
   const particles = [];
 
   for (let i = 0; i < particleCount; i++) {
     particles.push({
       x: Math.random() * width,
       y: Math.random() * height,
-      size: Math.random() * 1.8 + 0.8,
-      speedX: (Math.random() - 0.5) * 0.3,
-      speedY: -Math.random() * 0.4 - 0.15,
-      alpha: Math.random() * 0.5 + 0.2
+      size: Math.random() * 1.6 + 0.8,
+      speedX: (Math.random() - 0.5) * 0.25,
+      speedY: -Math.random() * 0.35 - 0.1,
+      alpha: Math.random() * 0.4 + 0.2
     });
   }
 
@@ -439,12 +443,17 @@ function initParticlesCanvas() {
 }
 
 // ==========================================
-// 7. CUSTOM CURSOR
+// 7. CUSTOM CURSOR (DESKTOP MOUSE ONLY)
 // ==========================================
 function initCustomCursor() {
+  const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (window.innerWidth < 992);
   const cursor = document.querySelector('.custom-cursor');
   const dot = document.querySelector('.custom-cursor-dot');
-  if (!cursor || !dot) return;
+  if (!cursor || !dot || isTouch) {
+    if (cursor) cursor.style.display = 'none';
+    if (dot) dot.style.display = 'none';
+    return;
+  }
 
   window.addEventListener('mousemove', (e) => {
     dot.style.left = `${e.clientX}px`;

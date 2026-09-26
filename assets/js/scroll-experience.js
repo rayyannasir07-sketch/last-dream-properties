@@ -87,21 +87,22 @@ const sacredSlogans = [
 ];
 
 function initSmoothScrollAndVideoExperience() {
-  // Initialize Lenis Smooth Scroll with brisk response
+  const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (window.innerWidth < 992);
+
+  // 1. Initialize Lenis Smooth Scroll on desktop mouse wheels only
   let lenisInstance = null;
-  if (typeof Lenis !== 'undefined') {
+  if (!isTouch && typeof Lenis !== 'undefined') {
     lenisInstance = new Lenis({
-      duration: 0.9,
+      duration: 0.7,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      touchMultiplier: 1.5
+      syncTouch: false
     });
 
     lenisInstance.on('scroll', ScrollTrigger.update);
     gsap.ticker.add((time) => {
       lenisInstance.raf(time * 1000);
     });
-    gsap.ticker.lagSmoothing(0);
     window.lenis = lenisInstance;
   }
 
@@ -116,6 +117,8 @@ function initSmoothScrollAndVideoExperience() {
 
   video.muted = true;
   video.playsInline = true;
+  video.setAttribute('playsinline', '');
+  video.setAttribute('webkit-playsinline', '');
 
   hudTotal.textContent = String(sacredSlogans.length).padStart(2, '0');
 
@@ -127,7 +130,6 @@ function initSmoothScrollAndVideoExperience() {
   const dotElements = [];
 
   sacredSlogans.forEach((slogan, index) => {
-    // Slogan Card
     const card = document.createElement('div');
     card.className = 'slogan-card';
     card.setAttribute('data-index', index);
@@ -140,48 +142,50 @@ function initSmoothScrollAndVideoExperience() {
     container.appendChild(card);
     cardElements.push(card);
 
-    // Indicator Dot
     const dot = document.createElement('div');
     dot.className = `hud-dot ${index === 0 ? 'active' : ''}`;
     dotsContainer.appendChild(dot);
     dotElements.push(dot);
   });
 
-  // Fast & Smooth Video Scrubbing Setup
+  // 2. Video Playback Strategy (Ultra-smooth 60FPS on Mobile, Lerp Scrub on Desktop)
   let targetProgress = 0;
-  let currentProgress = 0;
-  const lerpSpeed = 0.16; // Fast responsive tracking
-  let isSeeking = false;
-  let seekSafetyTimer = null;
 
-  video.addEventListener('seeked', () => {
-    isSeeking = false;
-  });
+  if (isTouch) {
+    video.autoplay = true;
+    video.loop = true;
+    video.play().catch(() => {});
+  } else {
+    let currentProgress = 0;
+    let isSeeking = false;
+    let seekSafetyTimer = null;
 
-  function smoothVideoLoop() {
-    if (video.duration && !isNaN(video.duration)) {
-      currentProgress += (targetProgress - currentProgress) * lerpSpeed;
-      const targetTime = currentProgress * video.duration;
+    video.addEventListener('seeked', () => { isSeeking = false; });
 
-      if (!isSeeking && Math.abs(video.currentTime - targetTime) > 0.02) {
-        isSeeking = true;
-        video.currentTime = targetTime;
-        clearTimeout(seekSafetyTimer);
-        seekSafetyTimer = setTimeout(() => { isSeeking = false; }, 60);
+    function desktopVideoLoop() {
+      if (video.duration && !isNaN(video.duration)) {
+        currentProgress += (targetProgress - currentProgress) * 0.2;
+        const targetTime = currentProgress * video.duration;
+
+        if (!isSeeking && Math.abs(video.currentTime - targetTime) > 0.03) {
+          isSeeking = true;
+          video.currentTime = targetTime;
+          clearTimeout(seekSafetyTimer);
+          seekSafetyTimer = setTimeout(() => { isSeeking = false; }, 50);
+        }
       }
+      requestAnimationFrame(desktopVideoLoop);
     }
-    requestAnimationFrame(smoothVideoLoop);
+    requestAnimationFrame(desktopVideoLoop);
   }
 
-  requestAnimationFrame(smoothVideoLoop);
-
-  // GSAP Master ScrollTrigger Timeline (Tuned for brisk, fluid tempo)
+  // 3. GSAP Master ScrollTrigger Timeline
   if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
 
     const totalSlogans = sacredSlogans.length;
-    // 380px per slogan = responsive, zero dragging or delay
-    const totalScrollDistance = totalSlogans * 380;
+    const distancePerSlogan = isTouch ? 190 : 320;
+    const totalScrollDistance = totalSlogans * distancePerSlogan;
 
     const masterTl = gsap.timeline({
       scrollTrigger: {
@@ -189,10 +193,14 @@ function initSmoothScrollAndVideoExperience() {
         start: "top top",
         end: `+=${totalScrollDistance}`,
         pin: true,
-        scrub: 0.4, // Snappy & direct
+        scrub: isTouch ? 0.1 : 0.25,
         anticipatePin: 1,
         onUpdate: (self) => {
-          targetProgress = self.progress;
+          if (!isTouch) {
+            targetProgress = self.progress;
+          } else if (video.paused) {
+            video.play().catch(() => {});
+          }
 
           let activeIdx = Math.floor(self.progress * totalSlogans);
           if (activeIdx >= totalSlogans) activeIdx = totalSlogans - 1;
@@ -213,15 +221,14 @@ function initSmoothScrollAndVideoExperience() {
       }
     });
 
-    const stepDuration = 1.6;
-    const overlap = 0.35;
+    const stepDuration = 1.4;
+    const overlap = 0.3;
 
     cardElements.forEach((card, i) => {
       gsap.set(card, {
         opacity: i === 0 ? 1 : 0,
-        y: i === 0 ? 0 : 40,
-        scale: i === 0 ? 1 : 0.95,
-        filter: i === 0 ? "blur(0px)" : "blur(8px)",
+        y: i === 0 ? 0 : 30,
+        scale: i === 0 ? 1 : 0.98,
         pointerEvents: i === 0 ? "auto" : "none"
       });
 
@@ -232,28 +239,20 @@ function initSmoothScrollAndVideoExperience() {
           opacity: 1,
           y: 0,
           scale: 1,
-          filter: "blur(0px)",
-          duration: 0.5,
-          ease: "power2.out",
+          duration: 0.4,
+          ease: "power1.out",
           onStart: () => { card.style.pointerEvents = "auto"; }
         }, startTime);
       }
 
       masterTl.to(card, {
-        scale: 1.02,
-        duration: 0.5,
-        ease: "none"
-      }, startTime + (i === 0 ? 0 : 0.5));
-
-      masterTl.to(card, {
         opacity: 0,
-        y: -40,
-        scale: 1.04,
-        filter: "blur(8px)",
-        duration: 0.45,
-        ease: "power2.in",
+        y: -30,
+        scale: 1.02,
+        duration: 0.35,
+        ease: "power1.in",
         onComplete: () => { card.style.pointerEvents = "none"; }
-      }, startTime + 1.0);
+      }, startTime + 0.85);
     });
   }
 }
