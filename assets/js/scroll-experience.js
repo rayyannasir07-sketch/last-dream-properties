@@ -104,20 +104,21 @@ function initSmoothScrollAndVideoExperience() {
   video.setAttribute('webkit-playsinline', '');
   video.setAttribute('autoplay', '');
   
-  const playPromise = video.play();
-  if (playPromise !== undefined) {
-    playPromise.catch(() => {
-      // Autoplay fallback on user interaction
-      const playOnInteract = () => {
-        video.play().catch(() => {});
-        window.removeEventListener('click', playOnInteract);
-        window.removeEventListener('scroll', playOnInteract);
-        window.removeEventListener('touchstart', playOnInteract);
-      };
-      window.addEventListener('click', playOnInteract, { once: true });
-      window.addEventListener('scroll', playOnInteract, { once: true, passive: true });
-      window.addEventListener('touchstart', playOnInteract, { once: true, passive: true });
-    });
+  // Smart video playback: only plays when in view to save 100% mobile CPU/GPU
+  if ('IntersectionObserver' in window) {
+    const section = document.getElementById('sacredJourneySection');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      });
+    }, { threshold: 0.05 });
+    if (section) observer.observe(section);
+  } else {
+    video.play().catch(() => {});
   }
 
   hudTotal.textContent = String(sacredSlogans.length).padStart(2, '0');
