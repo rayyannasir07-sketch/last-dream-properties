@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Last Dream Properties | Crown Real Estate of Makkah & Madinah</title>
+  <meta name="description" content="Last Dream Properties — Premier ultra-luxury real estate agency specializing in prime plots, royal villas, 5-star hotels, resorts, restaurants, apartments, towers, and rentals across Makkah Al-Mukarramah & Al-Madinah Al-Munawwarah.">
+  
+  <!-- Favicon & Theme Color -->
+  <meta name="theme-color" content="#0B0D10">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  
+  <!-- Local Fast Animation Libraries: GSAP, ScrollTrigger & Lenis -->
+  <script src="assets/js/lenis.min.js"></script>
+  <script src="assets/js/gsap.min.js"></script>
+  <script src="assets/js/ScrollTrigger.min.js"></script>
+</head>
+<body>
+
+  <!-- Custom Luxury Cursor -->
+  <div class="custom-cursor"></div>
+  <div class="custom-cursor-dot"></div>
+
+  <!-- Background Particle Canvas -->
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- ========================================================
+       1. ROYAL LUXURY PRELOADER (1 TO 10 COUNT ANIMATION)
+       ======================================================== -->
+  <aside class="preloader" id="royalPreloader" aria-label="Loading Last Dream Properties">
+    <div class="loader-curtain-left"></div>
+    <div class="loader-curtain-right"></div>
+    
+    <div class="preloader-content">
+      <div class="loader-emblem">
+        <img src="assets/images/logo-circle.png" alt="Last Dream Properties Emblem">
+      </div>
+      
+      <div class="loader-bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+      <div class="loader-brand">Last Dream Properties</div>
+      <div class="loader-subbrand">Makkah & Madinah Sanctuary Living</div>
+      
+      <div class="loader-counter-wrap">
+        <span class="loader-number" id="loaderNumber">01</span>
+        <span class="loader-total">/ 10</span>
+      </div>
+      
+      <div class="loader-progress-track">
+        <div class="loader-progress-bar" id="loaderProgressBar"></div>
+      </div>
+      
+      <div class="loader-status-text" id="loaderStatus">Initializing Sacred Sanctuary Protocol...</div>
+    </div>
+  </aside>
+
+  <!-- ========================================================
+       2. LUXURY NAVIGATION HEADER
+       ======================================================== -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="#hero" class="brand-logo">
+        <div class="brand-crest">
+          <img src="assets/images/logo-gold.png" alt="Last Dream Properties Logo">
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">Last Dream</span>
+          <span class="brand-subtitle">Properties • Makkah & Madinah</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#hero">Sanctuary</a></li>
+          <li><a href="#sacredJourneySection">Sacred Journey</a></li>
+          <li><a href="#portfolioSection">Portfolios</a></li>
+          <li><a href="#advantageSection">Vision 2030</a></li>
+          <li><a href="#contactSection">VIP Concierge</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Luxury Ambience Sound Generator Toggle -->
+        <button class="sound-toggle" id="soundToggleBtn" title="Toggle Serene Audio Atmosphere">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <line x1="23" y1="9" x2="17" y2="15"></line>
+            <line x1="17" y1="9" x2="23" y2="15"></line>
+          </svg>
+        </button>
+
+        <!-- Direct WhatsApp CTA Button -->
+        <a href="https://wa.me/966505596237?text=Assalamu%20Alaikum,%20I%20am%20contacting%20Last%20Dream%20Properties%20to%20inquire%20about%20exclusive%20real%20estate%20opportunities%20in%20Makkah%20and%20Madinah." target="_blank" rel="noopener noreferrer" class="btn-luxury-header">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.301-.15-1.776-.877-2.051-.977-.275-.1-.476-.15-.676.15-.2.301-.776.977-.951 1.177-.175.2-.351.226-.652.075-.301-.15-1.27-.468-2.42-1.493-.895-.798-1.5-1.785-1.675-2.086-.175-.301-.019-.464.131-.614.136-.135.301-.351.451-.527.15-.175.2-.301.301-.501.1-.2.05-.376-.025-.526-.075-.15-.676-1.628-.926-2.232-.244-.588-.492-.508-.676-.518l-.577-.01c-.2 0-.526.075-.802.376-.275.301-1.052 1.028-1.052 2.508 0 1.48 1.077 2.909 1.228 3.11.15.2 2.12 3.238 5.136 4.542.717.31 1.277.496 1.714.635.72.228 1.376.196 1.895.118.579-.087 1.776-.726 2.026-1.428.251-.702.251-1.303.175-1.428-.075-.125-.276-.2-.577-.35zM12.04 2C6.52 2 2.03 6.49 2.03 12.01c0 1.98.58 3.82 1.58 5.37L2 22l4.78-1.54c1.5 1.03 3.32 1.63 5.26 1.63 5.52 0 10.01-4.49 10.01-10.01C22.05 6.49 17.56 2 12.04 2z"/>
+          </svg>
+          VIP Inquire
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================
+       3. HERO SANCTUARY SECTION
+       ======================================================== -->
+  <section class="hero-section" id="hero">
+    <div class="hero-bg-layer"></div>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-container">
+      <div class="hero-badge-wrap">
+        <span class="hero-badge-pulse"></span>
+        <span class="hero-badge-text">Licensed by Saudi Real Estate Authority (REGA) • Vision 2030</span>
+      </div>
+
+      <div class="hero-arabic-title">مَكَّةُ الْمُكَرَّمَةُ &nbsp;•&nbsp; الْمَدِينَةُ الْمُنَوَّرَةُ</div>
+
+      <h1 class="hero-main-title">
+        The Pinnacle of Sacred Real Estate
+      </h1>
+
+      <p class="hero-desc">
+        Welcome to <strong>Last Dream Properties</strong>. We curate unprecedented acquisitions across Makkah Al-Mukarramah and Al-Madinah Al-Munawwarah — where eternal spiritual honor converges with multi-generational wealth and visionary prosperity.
+      </p>
+
+      <div class="hero-cta-group">
+        <a href="#sacredJourneySection" class="btn-primary-luxury">
+          <span>Begin The Sacred Journey</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#portfolioSection" class="btn-secondary-luxury">
+          <span>Explore 8 Collections</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+      </div>
+
+      <!-- Sacred City Live Indicators -->
+      <div class="hero-holy-stats">
+        <div class="holy-stat-item">
+          <div class="stat-value">30M+</div>
+          <div class="stat-label">Vision 2030 Annual Pilgrims Target</div>
+        </div>
+        <div class="holy-stat-item">
+          <div class="stat-value">100%</div>
+          <div class="stat-label">Electronic Sukuk Title Authenticity</div>
+        </div>
+        <div class="holy-stat-item">
+          <div class="stat-value">Zero</div>
+          <div class="stat-label">Depreciation on Haramain Frontline Land</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       4. SACRED SCROLL VIDEO EXPERIENCE & 11 SLOGANS / HADITHS
+       ======================================================== -->
+  <section class="scroll-video-section" id="sacredJourneySection">
+    <div class="scroll-video-pin-wrapper">
+      
+      <!-- Video Element -->
+      <div class="video-stage-container">
+        <video 
+          id="scrollExperienceVideo" 
+          src="assets/scroll-video.mp4" 
+          preload="auto" 
+          muted 
+          playsinline 
+          loop>
+        </video>
+        <div class="video-vignette"></div>
+      </div>
+
+      <!-- Top HUD Header -->
+      <div class="sacred-hud-header">
+        <div class="hud-location">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+          <span id="hudCurrentLocation">Al-Madinah Al-Munawwarah</span>
+        </div>
+        <div class="hud-progress-counter">
+          <span id="hudCurrentIndex">01</span> / <span id="hudTotalCount">11</span>
+        </div>
+      </div>
+
+      <!-- Dynamic Slogans Container (Populated via JS) -->
+      <div class="slogans-stage" id="sacredSlogansContainer">
+        <!-- Rendered dynamically with GSAP scroll synchronization -->
+      </div>
+
+      <!-- Bottom HUD Footer -->
+      <div class="sacred-hud-footer">
+        <div class="hud-scroll-prompt">
+          <span>Scroll to traverse sacred axioms</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </div>
+        <div class="hud-dots" id="hudDotsContainer"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================
+       5. 8 PROPERTY CATEGORIES & PORTFOLIO SHOWCASE
+       ======================================================== -->
+  <section class="portfolio-section" id="portfolioSection">
+    <div class="section-header-wrap">
+      <span class="section-eyebrow">Haramain Premier Asset Showcase</span>
+      <h2 class="section-main-heading">Exclusive Portfolios</h2>
+      <p class="section-desc">
+        Select from our royal assets across Makkah Al-Mukarramah and Al-Madinah Al-Munawwarah. Every property is rigorously vetted under Saudi regulatory governance.
+      </p>
+    </div>
+
+    <!-- Category Filter Tabs (Plots, Villas, Hotels, Resorts, Restaurants, Apartments, Ready buildings, Rental) -->
+    <div class="filter-tabs-wrapper">
+      <button class="filter-tab-btn active" data-filter="all">All Portfolios (8)</button>
+      <button class="filter-tab-btn" data-filter="plots">Plots</button>
+      <button class="filter-tab-btn" data-filter="villas">Villas</button>
+      <button class="filter-tab-btn" data-filter="hotels">Hotels</button>
+      <button class="filter-tab-btn" data-filter="resorts">Resorts</button>
+      <button class="filter-tab-btn" data-filter="restaurants">Restaurants</button>
+      <button class="filter-tab-btn" data-filter="apartments">Apartments</button>
+      <button class="filter-tab-btn" data-filter="ready_buildings">Ready Buildings</button>
+      <button class="filter-tab-btn" data-filter="rental">Rental</button>
+    </div>
+
+    <!-- City Filter Bar -->
+    <div class="city-filter-bar">
+      <span class="city-filter-pill active" data-city="all">All Holy Sanctuaries</span>
+      <span class="city-filter-pill" data-city="makkah">Makkah Al-Mukarramah</span>
+      <span class="city-filter-pill" data-city="madinah">Al-Madinah Al-Munawwarah</span>
+    </div>
+
+    <!-- Property Grid -->
+    <div class="portfolio-grid" id="propertiesGrid">
+      <!-- Injected dynamically via main.js -->
+    </div>
+  </section>
+
+  <!-- ========================================================
+       6. SACRED ADVANTAGE & SAUDI VISION 2030
+       ======================================================== -->
+  <section class="advantage-section" id="advantageSection">
+    <div class="section-header-wrap">
+      <span class="section-eyebrow">The Sovereign Advantage</span>
+      <h2 class="section-main-heading">Why Invest In The Two Holy Cities</h2>
+      <p class="section-desc">
+        A market without equal anywhere on Earth — driven by unceasing spiritual pilgrimage, sovereign Saudi mega-projects, and perpetual global demand.
+      </p>
+    </div>
+
+    <div class="advantage-grid">
+      <div class="advantage-card">
+        <div class="advantage-icon-wrap">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <h3 class="advantage-title">Eternal High Occupancy</h3>
+        <p class="advantage-text">
+          Unlike ordinary real estate cycles, Makkah and Madinah welcome millions of international pilgrims continuously through Hajj, Ramadan, and year-round Umrah seasons.
+        </p>
+      </div>
+
+      <div class="advantage-card">
+        <div class="advantage-icon-wrap">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <h3 class="advantage-title">Vision 2030 Influx</h3>
+        <p class="advantage-text">
+          Kingdom of Saudi Arabia's Vision 2030 targets hosting over 30 million Umrah pilgrims annually, with monumental infrastructure expansions like Rua Al Madinah and Masar Makkah.
+        </p>
+      </div>
+
+      <div class="advantage-card">
+        <div class="advantage-icon-wrap">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
+        </div>
+        <h3 class="advantage-title">Capital Preservation</h3>
+        <p class="advantage-text">
+          Land and prime buildings within the Haramain perimeter have demonstrated exceptional resistance to global financial downturns, appreciating systematically generation after generation.
+        </p>
+      </div>
+
+      <div class="advantage-card">
+        <div class="advantage-icon-wrap">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3 class="advantage-title">Regulatory Security</h3>
+        <p class="advantage-text">
+          Every transaction handled by Last Dream Properties adheres strictly to the Real Estate General Authority (REGA), Wafi regulations, and electronic notary authentication (Najiz).
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       7. VIP DIRECT CONTACT & CONSULTATION
+       ======================================================== -->
+  <section class="contact-section" id="contactSection">
+    <div class="contact-container-centered">
+      <div class="contact-arabic-tag" style="text-align: center;">تَوَاصَلْ مَعَ نُخْبَةِ مُسْتَشَارِي الْعَقَار</div>
+      <h2 class="contact-heading" style="text-align: center; margin-bottom: 1.2rem;">Direct VIP Concierge</h2>
+      <p class="contact-paragraph" style="text-align: center; max-width: 780px; margin: 0 auto 3rem auto;">
+        Whether acquiring prime plots near Al-Masjid An-Nabawi, high-rise hospitality towers overlooking the Kaaba, or royal private residences in Madinah, connect directly with our senior Haramain advisory team.
+      </p>
+
+      <div class="contact-channel-grid">
+        <!-- WhatsApp Direct -->
+        <a href="https://wa.me/966505596237?text=Assalamu%20Alaikum,%20I%20would%20like%20to%20consult%20with%20Last%20Dream%20Properties%20regarding%20exclusive%20real%20estate%20opportunities%20in%20Makkah%20and%20Madinah." target="_blank" rel="noopener noreferrer" class="contact-channel-item">
+          <div class="channel-icon" style="color: #25D366; background: rgba(37, 211, 102, 0.15);">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.472 14.382c-.301-.15-1.776-.877-2.051-.977-.275-.1-.476-.15-.676.15-.2.301-.776.977-.951 1.177-.175.2-.351.226-.652.075-.301-.15-1.27-.468-2.42-1.493-.895-.798-1.5-1.785-1.675-2.086-.175-.301-.019-.464.131-.614.136-.135.301-.351.451-.527.15-.175.2-.301.301-.501.1-.2.05-.376-.025-.526-.075-.15-.676-1.628-.926-2.232-.244-.588-.492-.508-.676-.518l-.577-.01c-.2 0-.526.075-.802.376-.275.301-1.052 1.028-1.052 2.508 0 1.48 1.077 2.909 1.228 3.11.15.2 2.12 3.238 5.136 4.542.717.31 1.277.496 1.714.635.72.228 1.376.196 1.895.118.579-.087 1.776-.726 2.026-1.428.251-.702.251-1.303.175-1.428-.075-.125-.276-.2-.577-.35zM12.04 2C6.52 2 2.03 6.49 2.03 12.01c0 1.98.58 3.82 1.58 5.37L2 22l4.78-1.54c1.5 1.03 3.32 1.63 5.26 1.63 5.52 0 10.01-4.49 10.01-10.01C22.05 6.49 17.56 2 12.04 2z"/>
+            </svg>
+          </div>
+          <div class="channel-meta">
+            <span class="channel-label">Direct WhatsApp / Mobile</span>
+            <span class="channel-val">+966 50 559 6237</span>
+          </div>
+        </a>
+
+        <!-- Email Address (Click to copy) -->
+        <a href="javascript:void(0)" onclick="copyEmailAddress()" class="contact-channel-item">
+          <div class="channel-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+          </div>
+          <div class="channel-meta">
+            <span class="channel-label">Official Email (Click to Copy)</span>
+            <span class="channel-val">info@lastdreamproperties</span>
+          </div>
+        </a>
+
+        <!-- Instagram Profile -->
+        <a href="https://www.instagram.com/lastdreamproperties/" target="_blank" rel="noopener noreferrer" class="contact-channel-item">
+          <div class="channel-icon" style="color: #E1306C; background: rgba(225, 48, 108, 0.15);">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+          </div>
+          <div class="channel-meta">
+            <span class="channel-label">Instagram Portfolio</span>
+            <span class="channel-val">@lastdreamproperties</span>
+          </div>
+        </a>
+      </div>
+
+      <div style="text-align: center; margin-top: 3.5rem;">
+        <a href="https://wa.me/966505596237?text=Assalamu%20Alaikum,%20I%20am%20contacting%20Last%20Dream%20Properties%20to%20inquire%20about%20exclusive%20real%20estate%20opportunities%20in%20Makkah%20and%20Madinah." target="_blank" rel="noopener noreferrer" class="btn-primary-luxury" style="padding: 1.2rem 3.5rem; font-size: 0.95rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.301-.15-1.776-.877-2.051-.977-.275-.1-.476-.15-.676.15-.2.301-.776.977-.951 1.177-.175.2-.351.226-.652.075-.301-.15-1.27-.468-2.42-1.493-.895-.798-1.5-1.785-1.675-2.086-.175-.301-.019-.464.131-.614.136-.135.301-.351.451-.527.15-.175.2-.301.301-.501.1-.2.05-.376-.025-.526-.075-.15-.676-1.628-.926-2.232-.244-.588-.492-.508-.676-.518l-.577-.01c-.2 0-.526.075-.802.376-.275.301-1.052 1.028-1.052 2.508 0 1.48 1.077 2.909 1.228 3.11.15.2 2.12 3.238 5.136 4.542.717.31 1.277.496 1.714.635.72.228 1.376.196 1.895.118.579-.087 1.776-.726 2.026-1.428.251-.702.251-1.303.175-1.428-.075-.125-.276-.2-.577-.35zM12.04 2C6.52 2 2.03 6.49 2.03 12.01c0 1.98.58 3.82 1.58 5.37L2 22l4.78-1.54c1.5 1.03 3.32 1.63 5.26 1.63 5.52 0 10.01-4.49 10.01-10.01C22.05 6.49 17.56 2 12.04 2z"/>
+          </svg>
+          Chat Directly on WhatsApp (+966 50 559 6237)
+        </a>
+        <p style="margin-top: 1.2rem; font-size: 0.8rem; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase;">
+          Offices: Makkah Al-Mukarramah &amp; Al-Madinah Al-Munawwarah, Kingdom of Saudi Arabia
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       9. MASTER FOOTER
+       ======================================================== -->
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div>
+        <div class="brand-logo" style="margin-bottom: 1rem;">
+          <div class="brand-crest">
+            <img src="assets/images/logo-gold.png" alt="Last Dream Properties Logo">
+          </div>
+          <div class="brand-text">
+            <span class="brand-name">Last Dream</span>
+            <span class="brand-subtitle">Properties • Saudi Arabia</span>
+          </div>
+        </div>
+        <p class="footer-brand-bio">
+          Last Dream Properties is the sovereign gateway to premium real estate investments in Makkah Al-Mukarramah and Al-Madinah Al-Munawwarah. Combining sacred reverence with visionary financial architecture.
+        </p>
+        <div class="footer-social-links">
+          <!-- Instagram Link -->
+          <a href="https://www.instagram.com/lastdreamproperties/" target="_blank" rel="noopener noreferrer" class="footer-social-btn" title="Follow Last Dream Properties on Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+          </a>
+          <!-- Direct WhatsApp Link -->
+          <a href="https://wa.me/966505596237" target="_blank" rel="noopener noreferrer" class="footer-social-btn" title="Chat on WhatsApp">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.472 14.382c-.301-.15-1.776-.877-2.051-.977-.275-.1-.476-.15-.676.15-.2.301-.776.977-.951 1.177-.175.2-.351.226-.652.075-.301-.15-1.27-.468-2.42-1.493-.895-.798-1.5-1.785-1.675-2.086-.175-.301-.019-.464.131-.614.136-.135.301-.351.451-.527.15-.175.2-.301.301-.501.1-.2.05-.376-.025-.526-.075-.15-.676-1.628-.926-2.232-.244-.588-.492-.508-.676-.518l-.577-.01c-.2 0-.526.075-.802.376-.275.301-1.052 1.028-1.052 2.508 0 1.48 1.077 2.909 1.228 3.11.15.2 2.12 3.238 5.136 4.542.717.31 1.277.496 1.714.635.72.228 1.376.196 1.895.118.579-.087 1.776-.726 2.026-1.428.251-.702.251-1.303.175-1.428-.075-.125-.276-.2-.577-.35zM12.04 2C6.52 2 2.03 6.49 2.03 12.01c0 1.98.58 3.82 1.58 5.37L2 22l4.78-1.54c1.5 1.03 3.32 1.63 5.26 1.63 5.52 0 10.01-4.49 10.01-10.01C22.05 6.49 17.56 2 12.04 2z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <h4 class="footer-col-title">Portfolio Categories</h4>
+        <ul class="footer-nav-list">
+          <li><a href="#portfolioSection">Plots &amp; Commercial Land</a></li>
+          <li><a href="#portfolioSection">Villas &amp; Royal Palaces</a></li>
+          <li><a href="#portfolioSection">Hotels &amp; Hospitality Towers</a></li>
+          <li><a href="#portfolioSection">Resorts &amp; Eco-Oases</a></li>
+          <li><a href="#portfolioSection">Restaurants &amp; Commercial Hubs</a></li>
+          <li><a href="#portfolioSection">Apartments &amp; Haram Suites</a></li>
+          <li><a href="#portfolioSection">Ready Buildings &amp; Compounds</a></li>
+          <li><a href="#portfolioSection">Seasonal &amp; Annual Rentals</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="footer-col-title">Sacred Cities</h4>
+        <ul class="footer-nav-list">
+          <li><a href="#portfolioSection">Makkah Al-Mukarramah</a></li>
+          <li><a href="#portfolioSection">Al-Madinah Al-Munawwarah</a></li>
+          <li><a href="#portfolioSection">Abraj Al Bait Quarter</a></li>
+          <li><a href="#portfolioSection">Jabal Omar Developments</a></li>
+          <li><a href="#portfolioSection">Rua Al Madinah Zones</a></li>
+          <li><a href="#portfolioSection">Uhud Sanctuary Enclave</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="footer-col-title">Direct Inquiries</h4>
+        <ul class="footer-nav-list">
+          <li><strong style="color: var(--accent-gold);">WhatsApp:</strong> <a href="https://wa.me/966505596237">+966 50 559 6237</a></li>
+          <li><strong style="color: var(--accent-gold);">Email:</strong> <a href="mailto:info@lastdreamproperties">info@lastdreamproperties</a></li>
+          <li><strong style="color: var(--accent-gold);">Instagram:</strong> <a href="https://www.instagram.com/lastdreamproperties/" target="_blank" rel="noopener">@lastdreamproperties</a></li>
+          <li><strong style="color: var(--accent-gold);">Offices:</strong> Makkah &amp; Madinah, Kingdom of Saudi Arabia</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>&copy; 2026 Last Dream Properties. All rights reserved. Licensed Saudi Real Estate Brokerage.</div>
+      <div>Designed with Sacred Precision for Makkah &amp; Madinah.</div>
+    </div>
+  </footer>
+
+  <!-- ========================================================
+       10. FLOATING WHATSAPP BUTTON
+       ======================================================== -->
+  <a href="https://wa.me/966505596237?text=Assalamu%20Alaikum,%20I%20am%20interested%20in%20exclusive%20properties%20at%20Last%20Dream%20Properties." 
+     target="_blank" 
+     rel="noopener noreferrer" 
+     class="floating-whatsapp-btn" 
+     title="Instant WhatsApp Assistance (+966 50 559 6237)">
+    <svg viewBox="0 0 24 24">
+      <path d="M17.472 14.382c-.301-.15-1.776-.877-2.051-.977-.275-.1-.476-.15-.676.15-.2.301-.776.977-.951 1.177-.175.2-.351.226-.652.075-.301-.15-1.27-.468-2.42-1.493-.895-.798-1.5-1.785-1.675-2.086-.175-.301-.019-.464.131-.614.136-.135.301-.351.451-.527.15-.175.2-.301.301-.501.1-.2.05-.376-.025-.526-.075-.15-.676-1.628-.926-2.232-.244-.588-.492-.508-.676-.518l-.577-.01c-.2 0-.526.075-.802.376-.275.301-1.052 1.028-1.052 2.508 0 1.48 1.077 2.909 1.228 3.11.15.2 2.12 3.238 5.136 4.542.717.31 1.277.496 1.714.635.72.228 1.376.196 1.895.118.579-.087 1.776-.726 2.026-1.428.251-.702.251-1.303.175-1.428-.075-.125-.276-.2-.577-.35zM12.04 2C6.52 2 2.03 6.49 2.03 12.01c0 1.98.58 3.82 1.58 5.37L2 22l4.78-1.54c1.5 1.03 3.32 1.63 5.26 1.63 5.52 0 10.01-4.49 10.01-10.01C22.05 6.49 17.56 2 12.04 2z"/>
+    </svg>
+  </a>
+
+  <!-- ========================================================
+       11. PROPERTY DETAIL MODAL
+       ======================================================== -->
+  <aside class="property-modal" id="propertyDetailModal" aria-modal="true" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <button class="modal-close-btn" onclick="closePropertyModal()" title="Close details">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <img id="modalPropertyImage" src="" alt="Property Preview" class="modal-banner-img">
+
+      <div class="modal-body-content">
+        <div id="modalPropertyArabic" style="font-family: var(--font-arabic); font-size: 1.5rem; color: var(--accent-gold); margin-bottom: 0.3rem;"></div>
+        <h2 id="modalPropertyTitle" style="font-family: var(--font-serif); font-size: 2rem; color: #fff; margin-bottom: 0.8rem;"></h2>
+        
+        <div id="modalPropertyLocation" style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;"></div>
+
+
+
+        <p id="modalPropertyDesc" style="color: #D4D4D4; line-height: 1.8; margin-bottom: 2rem; font-size: 1rem;"></p>
+
+        <h4 style="font-family: var(--font-serif); font-size: 1.1rem; color: #fff; margin-bottom: 1rem; letter-spacing: 1.5px; text-transform: uppercase;">Key Architectural Specifications</h4>
+        <div id="modalPropertySpecsGrid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem;"></div>
+
+        <h4 style="font-family: var(--font-serif); font-size: 1.1rem; color: #fff; margin-bottom: 1rem; letter-spacing: 1.5px; text-transform: uppercase;">Distinguished Features</h4>
+        <ul id="modalPropertyFeatures" style="list-style: none; margin-bottom: 2.5rem;"></ul>
+
+        <div style="display: flex; gap: 1rem;">
+          <a id="modalWhatsAppBtn" href="#" target="_blank" rel="noopener noreferrer" class="btn-primary-luxury" style="flex: 1; justify-content: center;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.472 14.382c-.301-.15-1.776-.877-2.051-.977-.275-.1-.476-.15-.676.15-.2.301-.776.977-.951 1.177-.175.2-.351.226-.652.075-.301-.15-1.27-.468-2.42-1.493-.895-.798-1.5-1.785-1.675-2.086-.175-.301-.019-.464.131-.614.136-.135.301-.351.451-.527.15-.175.2-.301.301-.501.1-.2.05-.376-.025-.526-.075-.15-.676-1.628-.926-2.232-.244-.588-.492-.508-.676-.518l-.577-.01c-.2 0-.526.075-.802.376-.275.301-1.052 1.028-1.052 2.508 0 1.48 1.077 2.909 1.228 3.11.15.2 2.12 3.238 5.136 4.542.717.31 1.277.496 1.714.635.72.228 1.376.196 1.895.118.579-.087 1.776-.726 2.026-1.428.251-.702.251-1.303.175-1.428-.075-.125-.276-.2-.577-.35zM12.04 2C6.52 2 2.03 6.49 2.03 12.01c0 1.98.58 3.82 1.58 5.37L2 22l4.78-1.54c1.5 1.03 3.32 1.63 5.26 1.63 5.52 0 10.01-4.49 10.01-10.01C22.05 6.49 17.56 2 12.04 2z"/>
+            </svg>
+            Book Private Viewing on WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Client JavaScript Modules -->
+  <script src="assets/js/audio-ambience.js"></script>
+  <script src="assets/js/scroll-experience.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
