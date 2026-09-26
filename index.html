@@ -96,9 +96,64 @@
           </svg>
           VIP Inquire
         </a>
+
+        <!-- Mobile Luxury Menu Toggle Button -->
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle Mobile Navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
     </div>
   </header>
+
+  <!-- Mobile Luxury Drawer Navigation -->
+  <aside class="mobile-nav-drawer" id="mobileNavDrawer" aria-hidden="true">
+    <div class="drawer-header">
+      <div class="brand-logo">
+        <div class="brand-crest">
+          <img src="assets/images/logo-gold.png" alt="Last Dream Properties Logo">
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">Last Dream</span>
+          <span class="brand-subtitle">Makkah &amp; Madinah</span>
+        </div>
+      </div>
+      <button class="drawer-close-btn" id="drawerCloseBtn" aria-label="Close Mobile Navigation">✕</button>
+    </div>
+    <nav class="drawer-nav">
+      <a href="#hero" class="drawer-nav-link">
+        <span class="nav-num">01</span>
+        <span class="nav-title">Sanctuary</span>
+      </a>
+      <a href="#sacredJourneySection" class="drawer-nav-link">
+        <span class="nav-num">02</span>
+        <span class="nav-title">Sacred Journey</span>
+      </a>
+      <a href="#portfolioSection" class="drawer-nav-link">
+        <span class="nav-num">03</span>
+        <span class="nav-title">8 Portfolios</span>
+      </a>
+      <a href="#advantageSection" class="drawer-nav-link">
+        <span class="nav-num">04</span>
+        <span class="nav-title">Vision 2030 Advantage</span>
+      </a>
+      <a href="#contactSection" class="drawer-nav-link">
+        <span class="nav-num">05</span>
+        <span class="nav-title">VIP Concierge</span>
+      </a>
+    </nav>
+    <div class="drawer-footer">
+      <a href="https://wa.me/966505596237?text=Assalamu%20Alaikum,%20I%20would%20like%20to%20consult%20with%20Last%20Dream%20Properties%20VIP%20Concierge." target="_blank" rel="noopener noreferrer" class="btn-primary-luxury drawer-wa-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.301-.15-1.776-.877-2.051-.977-.275-.1-.476-.15-.676.15-.2.301-.776.977-.951 1.177-.175.2-.351.226-.652.075-.301-.15-1.27-.468-2.42-1.493-.895-.798-1.5-1.785-1.675-2.086-.175-.301-.019-.464.131-.614.136-.135.301-.351.451-.527.15-.175.2-.301.301-.501.1-.2.05-.376-.025-.526-.075-.15-.676-1.628-.926-2.232-.244-.588-.492-.508-.676-.518l-.577-.01c-.2 0-.526.075-.802.376-.275.301-1.052 1.028-1.052 2.508 0 1.48 1.077 2.909 1.228 3.11.15.2 2.12 3.238 5.136 4.542.717.31 1.277.496 1.714.635.72.228 1.376.196 1.895.118.579-.087 1.776-.726 2.026-1.428.251-.702.251-1.303.175-1.428-.075-.125-.276-.2-.577-.35zM12.04 2C6.52 2 2.03 6.49 2.03 12.01c0 1.98.58 3.82 1.58 5.37L2 22l4.78-1.54c1.5 1.03 3.32 1.63 5.26 1.63 5.52 0 10.01-4.49 10.01-10.01C22.05 6.49 17.56 2 12.04 2z"/>
+        </svg>
+        <span>WhatsApp Concierge</span>
+      </a>
+      <div class="drawer-contact-note">+966 50 559 6237 • Makkah &amp; Madinah</div>
+    </div>
+  </aside>
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
 
   <!-- ========================================================
        3. HERO SANCTUARY SECTION
@@ -176,26 +231,13 @@
   </section>
 
   <!-- ========================================================
-       4. SACRED SCROLL VIDEO EXPERIENCE & 11 SLOGANS / HADITHS
+       4. SACRED JOURNEY: PROPHETIC HADITHS & REAL ESTATE AXIOMS (FAST & ZERO VIDEO)
        ======================================================== -->
-  <section class="scroll-video-section" id="sacredJourneySection">
-    <div class="scroll-video-pin-wrapper">
+  <section class="sacred-journey-section" id="sacredJourneySection">
+    <div class="sacred-journey-backdrop"></div>
+    <div class="sacred-journey-container">
       
-      <!-- Video Element -->
-      <div class="video-stage-container">
-        <video 
-          id="scrollExperienceVideo" 
-          src="assets/scroll-video.mp4" 
-          poster="assets/images/madinah_bg.jpg"
-          preload="metadata" 
-          muted 
-          playsinline 
-          loop>
-        </video>
-        <div class="video-vignette"></div>
-      </div>
-
-      <!-- Top HUD Header -->
+      <!-- Top Sacred HUD Indicator -->
       <div class="sacred-hud-header">
         <div class="hud-location">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
@@ -206,17 +248,23 @@
         </div>
       </div>
 
-      <!-- Dynamic Slogans Container (Populated via JS) -->
-      <div class="slogans-stage" id="sacredSlogansContainer">
-        <!-- Rendered dynamically with GSAP scroll synchronization -->
+      <!-- Section Title Intro -->
+      <div class="sacred-intro-wrap">
+        <span class="section-eyebrow">Prophetic Blessings &amp; Timeless Axioms</span>
+        <h2 class="sacred-section-heading">The Sacred Journey</h2>
       </div>
 
-      <!-- Bottom HUD Footer -->
-      <div class="sacred-hud-footer">
-        <div class="hud-scroll-prompt">
-          <span>Scroll to traverse sacred axioms</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      <!-- Dynamic Slogans Container (Populated via JS) -->
+      <div class="slogans-stage-wrapper">
+        <button class="slogan-nav-btn slogan-prev-btn" id="sloganPrevBtn" aria-label="Previous Axiom">‹</button>
+        <div class="slogans-stage" id="sacredSlogansContainer">
+          <!-- Rendered dynamically with 60FPS transitions -->
         </div>
+        <button class="slogan-nav-btn slogan-next-btn" id="sloganNextBtn" aria-label="Next Axiom">›</button>
+      </div>
+
+      <!-- Bottom Navigation Dots -->
+      <div class="sacred-hud-footer">
         <div class="hud-dots" id="hudDotsContainer"></div>
       </div>
 

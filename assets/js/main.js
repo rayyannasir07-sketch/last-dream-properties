@@ -469,6 +469,59 @@ function initCustomCursor() {
   });
 }
 
+// ==========================================
+// 8. MOBILE NAVIGATION DRAWER CONTROLLER
+// ==========================================
+function initMobileNavigation() {
+  const toggleBtn = document.getElementById('mobileMenuToggle');
+  const drawer = document.getElementById('mobileNavDrawer');
+  const closeBtn = document.getElementById('drawerCloseBtn');
+  const backdrop = document.getElementById('drawerBackdrop');
+  const navLinks = document.querySelectorAll('.drawer-nav-link');
+
+  if (!toggleBtn || !drawer) return;
+
+  function openDrawer() {
+    drawer.classList.add('open');
+    drawer.setAttribute('aria-hidden', 'false');
+    toggleBtn.classList.add('active');
+    if (backdrop) backdrop.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDrawer() {
+    drawer.classList.remove('open');
+    drawer.setAttribute('aria-hidden', 'true');
+    toggleBtn.classList.remove('active');
+    if (backdrop) backdrop.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  toggleBtn.addEventListener('click', () => {
+    if (drawer.classList.contains('open')) {
+      closeDrawer();
+    } else {
+      openDrawer();
+    }
+  });
+
+  if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+  if (backdrop) backdrop.addEventListener('click', closeDrawer);
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      closeDrawer();
+    });
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && drawer.classList.contains('open')) {
+      closeDrawer();
+    }
+  });
+}
+
 // Copy Email Utility
 function copyEmailAddress() {
   const email = "info@lastdreamproperties";
@@ -492,4 +545,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initSoundToggle();
   initParticlesCanvas();
   initCustomCursor();
+  initMobileNavigation();
 });

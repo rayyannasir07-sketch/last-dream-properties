@@ -1,9 +1,12 @@
 /*
-  LAST DREAM PROPERTIES — SACRED SCROLL VIDEO & SLOGANS EXPERIENCE (FAST & SMOOTH)
+  LAST DREAM PROPERTIES — SACRED JOURNEY (FAST, LIGHTWEIGHT, ZERO VIDEO LAG)
+  Prophetic Hadiths & Sovereign Real Estate Axioms
   Features:
-  - Studio Freight Lenis Smooth Momentum Scrolling
-  - Instantaneous 60FPS Video Scrubbing with zero delay
-  - Rapid, responsive GSAP Timeline transitions for all 11 slogans
+  - 100% Zero Video CPU/GPU overhead
+  - Silky smooth 60fps transitions
+  - Touch-swipe support for mobile devices
+  - Auto-advance carousel with pause on hover/touch
+  - Interactive previous/next buttons and direct jump dots
 */
 
 const sacredSlogans = [
@@ -86,46 +89,25 @@ const sacredSlogans = [
   }
 ];
 
-function initSmoothScrollAndVideoExperience() {
+function initSacredJourneyExperience() {
   const container = document.getElementById('sacredSlogansContainer');
   const dotsContainer = document.getElementById('hudDotsContainer');
   const hudIndex = document.getElementById('hudCurrentIndex');
   const hudTotal = document.getElementById('hudTotalCount');
   const hudLocation = document.getElementById('hudCurrentLocation');
-  const video = document.getElementById('scrollExperienceVideo');
+  const prevBtn = document.getElementById('sloganPrevBtn');
+  const nextBtn = document.getElementById('sloganNextBtn');
+  const wrapper = document.querySelector('.slogans-stage-wrapper') || document.getElementById('sacredJourneySection');
 
-  if (!container || !video) return;
+  if (!container) return;
 
-  // Ultra-smooth native video playback (ZERO seeking lag, pure 60fps)
-  video.muted = true;
-  video.loop = true;
-  video.playsInline = true;
-  video.setAttribute('playsinline', '');
-  video.setAttribute('webkit-playsinline', '');
-  video.setAttribute('autoplay', '');
-  
-  // Smart video playback: only plays when in view to save 100% mobile CPU/GPU
-  if ('IntersectionObserver' in window) {
-    const section = document.getElementById('sacredJourneySection');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          video.play().catch(() => {});
-        } else {
-          video.pause();
-        }
-      });
-    }, { threshold: 0.05 });
-    if (section) observer.observe(section);
-  } else {
-    video.play().catch(() => {});
+  if (hudTotal) {
+    hudTotal.textContent = String(sacredSlogans.length).padStart(2, '0');
   }
 
-  hudTotal.textContent = String(sacredSlogans.length).padStart(2, '0');
-
-  // Render Slogan Cards
+  // Render cards
   container.innerHTML = '';
-  dotsContainer.innerHTML = '';
+  if (dotsContainer) dotsContainer.innerHTML = '';
 
   const cardElements = [];
   const dotElements = [];
@@ -135,43 +117,34 @@ function initSmoothScrollAndVideoExperience() {
     card.className = `slogan-card ${index === 0 ? 'active' : ''}`;
     card.setAttribute('data-index', index);
     card.innerHTML = `
-      <div class="slogan-arabic-ornament">${slogan.arabic}</div>
-      <div class="slogan-tag">${slogan.tag}</div>
-      <div class="slogan-quote-text">${slogan.text}</div>
-      <div class="slogan-reference">✧ ${slogan.ref} ✧</div>
+      <div class="slogan-card-inner">
+        <div class="slogan-arabic-ornament">${slogan.arabic}</div>
+        <div class="slogan-tag">${slogan.tag}</div>
+        <div class="slogan-quote-text">${slogan.text}</div>
+        <div class="slogan-reference">✧ ${slogan.ref} ✧</div>
+      </div>
     `;
     container.appendChild(card);
     cardElements.push(card);
 
-    const dot = document.createElement('div');
-    dot.className = `hud-dot ${index === 0 ? 'active' : ''}`;
-    dot.setAttribute('data-dot-index', index);
-    dot.setAttribute('title', `Go to slogan ${index + 1}`);
-    dotsContainer.appendChild(dot);
-    dotElements.push(dot);
+    if (dotsContainer) {
+      const dot = document.createElement('button');
+      dot.className = `hud-dot ${index === 0 ? 'active' : ''}`;
+      dot.setAttribute('data-dot-index', index);
+      dot.setAttribute('aria-label', `Navigate to axiom ${index + 1}`);
+      dotsContainer.appendChild(dot);
+      dotElements.push(dot);
+
+      dot.addEventListener('click', () => {
+        updateSlogan(index);
+        restartAutoPlay();
+      });
+    }
   });
-
-  // Add Left & Right Luxury Navigation Arrows
-  const wrapper = document.querySelector('.scroll-video-pin-wrapper');
-  if (wrapper && !document.getElementById('sloganPrevBtn')) {
-    const prevBtn = document.createElement('button');
-    prevBtn.className = 'slogan-nav-btn slogan-prev-btn';
-    prevBtn.id = 'sloganPrevBtn';
-    prevBtn.innerHTML = '‹';
-    prevBtn.setAttribute('aria-label', 'Previous Slogan');
-
-    const nextBtn = document.createElement('button');
-    nextBtn.className = 'slogan-nav-btn slogan-next-btn';
-    nextBtn.id = 'sloganNextBtn';
-    nextBtn.innerHTML = '›';
-    nextBtn.setAttribute('aria-label', 'Next Slogan');
-
-    wrapper.appendChild(prevBtn);
-    wrapper.appendChild(nextBtn);
-  }
 
   let activeIdx = 0;
   const totalSlogans = sacredSlogans.length;
+  let autoPlayTimer = null;
 
   function updateSlogan(index) {
     if (index < 0) index = totalSlogans - 1;
@@ -181,18 +154,14 @@ function initSmoothScrollAndVideoExperience() {
     cardElements.forEach((card, i) => {
       if (i === activeIdx) {
         card.classList.add('active');
-        card.style.opacity = '1';
-        card.style.transform = 'translateY(0) scale(1)';
-        card.style.pointerEvents = 'auto';
       } else {
         card.classList.remove('active');
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(20px) scale(0.98)';
-        card.style.pointerEvents = 'none';
       }
     });
 
-    hudIndex.textContent = String(activeIdx + 1).padStart(2, '0');
+    if (hudIndex) {
+      hudIndex.textContent = String(activeIdx + 1).padStart(2, '0');
+    }
     if (hudLocation) {
       hudLocation.textContent = sacredSlogans[activeIdx].location;
     }
@@ -203,73 +172,72 @@ function initSmoothScrollAndVideoExperience() {
     });
   }
 
-  // Interactive Buttons & Dot Listeners
-  const prevBtn = document.getElementById('sloganPrevBtn');
-  const nextBtn = document.getElementById('sloganNextBtn');
-  if (prevBtn) prevBtn.addEventListener('click', () => updateSlogan(activeIdx - 1));
-  if (nextBtn) nextBtn.addEventListener('click', () => updateSlogan(activeIdx + 1));
-
-  dotElements.forEach((dot, idx) => {
-    dot.addEventListener('click', () => updateSlogan(idx));
-  });
-
-  const isMobile = window.innerWidth < 768;
-
-  // On Mobile: ZERO PINNING (100% native smooth scroll + touch swipe & auto-rotation)
-  if (isMobile) {
-    // Touch swipe left/right for slogans
-    let touchStartX = 0;
-    let touchStartY = 0;
-    if (wrapper) {
-      wrapper.addEventListener('touchstart', (e) => {
-        touchStartX = e.touches[0].clientX;
-        touchStartY = e.touches[0].clientY;
-      }, { passive: true });
-
-      wrapper.addEventListener('touchend', (e) => {
-        const diffX = touchStartX - e.changedTouches[0].clientX;
-        const diffY = touchStartY - e.changedTouches[0].clientY;
-        if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
-          if (diffX > 0) updateSlogan(activeIdx + 1);
-          else updateSlogan(activeIdx - 1);
-        }
-      }, { passive: true });
-    }
-
-    // Auto-rotation every 4.5 seconds on mobile
-    setInterval(() => {
+  function startAutoPlay() {
+    stopAutoPlay();
+    autoPlayTimer = setInterval(() => {
       updateSlogan(activeIdx + 1);
-    }, 4500);
+    }, 5500);
+  }
 
-  } else {
-    // Desktop: Snappy GSAP ScrollTrigger without lag
-    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-      gsap.registerPlugin(ScrollTrigger);
-
-      const distancePerSlogan = 160;
-      const totalScrollDistance = totalSlogans * distancePerSlogan;
-
-      gsap.timeline({
-        scrollTrigger: {
-          trigger: "#sacredJourneySection",
-          start: "top top",
-          end: `+=${totalScrollDistance}`,
-          pin: true,
-          scrub: 0.1,
-          anticipatePin: 1,
-          onUpdate: (self) => {
-            let idx = Math.floor(self.progress * totalSlogans);
-            if (idx >= totalSlogans) idx = totalSlogans - 1;
-            if (idx !== activeIdx) {
-              updateSlogan(idx);
-            }
-          }
-        }
-      });
+  function stopAutoPlay() {
+    if (autoPlayTimer) {
+      clearInterval(autoPlayTimer);
+      autoPlayTimer = null;
     }
   }
+
+  function restartAutoPlay() {
+    stopAutoPlay();
+    startAutoPlay();
+  }
+
+  // Button listeners
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      updateSlogan(activeIdx - 1);
+      restartAutoPlay();
+    });
+  }
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      updateSlogan(activeIdx + 1);
+      restartAutoPlay();
+    });
+  }
+
+  // Pause on hover
+  if (wrapper) {
+    wrapper.addEventListener('mouseenter', stopAutoPlay);
+    wrapper.addEventListener('mouseleave', startAutoPlay);
+
+    // Touch Swipe Support for Mobile & Tablets
+    let touchStartX = 0;
+    let touchStartY = 0;
+    wrapper.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      stopAutoPlay();
+    }, { passive: true });
+
+    wrapper.addEventListener('touchend', (e) => {
+      const diffX = touchStartX - e.changedTouches[0].clientX;
+      const diffY = touchStartY - e.changedTouches[0].clientY;
+      if (Math.abs(diffX) > 35 && Math.abs(diffX) > Math.abs(diffY)) {
+        if (diffX > 0) {
+          updateSlogan(activeIdx + 1);
+        } else {
+          updateSlogan(activeIdx - 1);
+        }
+      }
+      startAutoPlay();
+    }, { passive: true });
+  }
+
+  // Start initial rotation
+  updateSlogan(0);
+  startAutoPlay();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  setTimeout(initSmoothScrollAndVideoExperience, 30);
+  setTimeout(initSacredJourneyExperience, 20);
 });
