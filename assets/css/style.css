@@ -41,7 +41,7 @@ html {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   font-family: var(--font-sans);
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
   overflow-x: hidden;
 }
 
@@ -776,17 +776,15 @@ body {
   position: absolute;
   max-width: 900px;
   text-align: center;
-  padding: 2.8rem 3.5rem;
-  background: rgba(21, 24, 29, 0.88);
+  padding: 2.5rem 3.2rem;
+  background: rgba(16, 19, 24, 0.94);
   border: 1px solid var(--border-gold);
   border-radius: 16px;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 30px rgba(201, 164, 92, 0.15);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 25px rgba(201, 164, 92, 0.15);
   opacity: 0;
-  transform: translateY(40px) scale(0.96);
+  transform: translateY(25px) scale(0.98);
   pointer-events: none;
-  will-change: transform, opacity, filter;
+  will-change: transform, opacity;
 }
 
 .slogan-card.active {

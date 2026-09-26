@@ -87,25 +87,6 @@ const sacredSlogans = [
 ];
 
 function initSmoothScrollAndVideoExperience() {
-  const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (window.innerWidth < 992);
-
-  // 1. Initialize Lenis Smooth Scroll on desktop mouse wheels only
-  let lenisInstance = null;
-  if (!isTouch && typeof Lenis !== 'undefined') {
-    lenisInstance = new Lenis({
-      duration: 0.7,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-      syncTouch: false
-    });
-
-    lenisInstance.on('scroll', ScrollTrigger.update);
-    gsap.ticker.add((time) => {
-      lenisInstance.raf(time * 1000);
-    });
-    window.lenis = lenisInstance;
-  }
-
   const container = document.getElementById('sacredSlogansContainer');
   const dotsContainer = document.getElementById('hudDotsContainer');
   const hudIndex = document.getElementById('hudCurrentIndex');
@@ -115,10 +96,29 @@ function initSmoothScrollAndVideoExperience() {
 
   if (!container || !video) return;
 
+  // Ultra-smooth native video playback (ZERO seeking lag, pure 60fps)
   video.muted = true;
+  video.loop = true;
   video.playsInline = true;
   video.setAttribute('playsinline', '');
   video.setAttribute('webkit-playsinline', '');
+  video.setAttribute('autoplay', '');
+  
+  const playPromise = video.play();
+  if (playPromise !== undefined) {
+    playPromise.catch(() => {
+      // Autoplay fallback on user interaction
+      const playOnInteract = () => {
+        video.play().catch(() => {});
+        window.removeEventListener('click', playOnInteract);
+        window.removeEventListener('scroll', playOnInteract);
+        window.removeEventListener('touchstart', playOnInteract);
+      };
+      window.addEventListener('click', playOnInteract, { once: true });
+      window.addEventListener('scroll', playOnInteract, { once: true, passive: true });
+      window.addEventListener('touchstart', playOnInteract, { once: true, passive: true });
+    });
+  }
 
   hudTotal.textContent = String(sacredSlogans.length).padStart(2, '0');
 
@@ -148,43 +148,14 @@ function initSmoothScrollAndVideoExperience() {
     dotElements.push(dot);
   });
 
-  // 2. Video Playback Strategy (Ultra-smooth 60FPS on Mobile, Lerp Scrub on Desktop)
-  let targetProgress = 0;
-
-  if (isTouch) {
-    video.autoplay = true;
-    video.loop = true;
-    video.play().catch(() => {});
-  } else {
-    let currentProgress = 0;
-    let isSeeking = false;
-    let seekSafetyTimer = null;
-
-    video.addEventListener('seeked', () => { isSeeking = false; });
-
-    function desktopVideoLoop() {
-      if (video.duration && !isNaN(video.duration)) {
-        currentProgress += (targetProgress - currentProgress) * 0.2;
-        const targetTime = currentProgress * video.duration;
-
-        if (!isSeeking && Math.abs(video.currentTime - targetTime) > 0.03) {
-          isSeeking = true;
-          video.currentTime = targetTime;
-          clearTimeout(seekSafetyTimer);
-          seekSafetyTimer = setTimeout(() => { isSeeking = false; }, 50);
-        }
-      }
-      requestAnimationFrame(desktopVideoLoop);
-    }
-    requestAnimationFrame(desktopVideoLoop);
-  }
-
-  // 3. GSAP Master ScrollTrigger Timeline
+  // Fast, Snappy GSAP ScrollTrigger Slogan Transition
   if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
 
     const totalSlogans = sacredSlogans.length;
-    const distancePerSlogan = isTouch ? 190 : 320;
+    const isMobile = window.innerWidth < 768;
+    // Fast, lightweight scroll distance (no dragging or getting stuck)
+    const distancePerSlogan = isMobile ? 140 : 180;
     const totalScrollDistance = totalSlogans * distancePerSlogan;
 
     const masterTl = gsap.timeline({
@@ -193,15 +164,9 @@ function initSmoothScrollAndVideoExperience() {
         start: "top top",
         end: `+=${totalScrollDistance}`,
         pin: true,
-        scrub: isTouch ? 0.1 : 0.25,
+        scrub: 0.1, // Instantaneous 1-to-1 response
         anticipatePin: 1,
         onUpdate: (self) => {
-          if (!isTouch) {
-            targetProgress = self.progress;
-          } else if (video.paused) {
-            video.play().catch(() => {});
-          }
-
           let activeIdx = Math.floor(self.progress * totalSlogans);
           if (activeIdx >= totalSlogans) activeIdx = totalSlogans - 1;
 
@@ -221,13 +186,13 @@ function initSmoothScrollAndVideoExperience() {
       }
     });
 
-    const stepDuration = 1.4;
-    const overlap = 0.3;
+    const stepDuration = 1.0;
+    const overlap = 0.2;
 
     cardElements.forEach((card, i) => {
       gsap.set(card, {
         opacity: i === 0 ? 1 : 0,
-        y: i === 0 ? 0 : 30,
+        y: i === 0 ? 0 : 25,
         scale: i === 0 ? 1 : 0.98,
         pointerEvents: i === 0 ? "auto" : "none"
       });
@@ -239,24 +204,24 @@ function initSmoothScrollAndVideoExperience() {
           opacity: 1,
           y: 0,
           scale: 1,
-          duration: 0.4,
-          ease: "power1.out",
+          duration: 0.3,
+          ease: "none",
           onStart: () => { card.style.pointerEvents = "auto"; }
         }, startTime);
       }
 
       masterTl.to(card, {
         opacity: 0,
-        y: -30,
+        y: -25,
         scale: 1.02,
-        duration: 0.35,
-        ease: "power1.in",
+        duration: 0.25,
+        ease: "none",
         onComplete: () => { card.style.pointerEvents = "none"; }
-      }, startTime + 0.85);
+      }, startTime + 0.65);
     });
   }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  setTimeout(initSmoothScrollAndVideoExperience, 80);
+  setTimeout(initSmoothScrollAndVideoExperience, 30);
 });
